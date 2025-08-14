@@ -39,14 +39,13 @@ header h1 {
 }
 
 main {
-  padding: 2rem;
+  padding: 1rem 2rem 6rem;
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding-bottom: 6rem; /* Space for fixed footer/back button */
 }
 
 main p {
@@ -143,9 +142,7 @@ footer {
   text-align: center;
   padding: 1rem 0;
   position: fixed;
-  bottom: 3rem; /* Reduced for mobile */
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 3rem;
 }
 
 .progress-bar {
@@ -182,53 +179,51 @@ footer {
 /* Mobile adjustments */
 @media screen and (max-width: 600px) {
   header h1 {
-    font-size: 2rem; /* Smaller heading */
+    font-size: 1.8rem;
   }
 
   main {
-    padding: 1rem;
-    padding-bottom: 8rem; /* More space for fixed elements */
+    padding: 0.5rem 1rem 7rem;
   }
 
   main p {
-    font-size: 1.2rem; /* Smaller text */
+    font-size: 1.2rem;
   }
 
   .centered-image {
-    max-height: 200px; /* Reduce image height */
+    max-height: 150px;
   }
 
   .counter {
-    font-size: 1rem; /* Smaller counter text */
+    font-size: 1rem;
   }
 
   .ruined-text {
-    font-size: 2rem; /* Smaller R U I N E D text */
+    font-size: 1.8rem;
   }
 
   .progress-bar {
-    max-width: 80%; /* Scale with viewport */
-    height: 15px; /* Thinner progress bar */
+    max-width: 80%;
+    height: 12px;
   }
 
   .nav-button {
     padding: 0.5rem 1rem;
-    font-size: 1rem; /* Smaller buttons */
+    font-size: 1rem;
     margin: 0.5rem;
   }
 
   .button-group {
-    gap: 0.5rem; /* Tighter button spacing */
+    gap: 0.5rem;
   }
 
   .back-button-container {
-    bottom: 4rem; /* Higher to avoid overlap */
+    bottom: 3.5rem;
   }
 
   footer {
     padding: 0.5rem;
-    font-size: 0.9rem; /* Smaller footer text */
-    bottom: 0;
+    font-size: 0.8rem;
   }
 }
 /* coolors.co */
