@@ -67,7 +67,7 @@ const EdgeGame = () => {
         <h1>...edgies?? EDGIES!!!</h1>
       </header>
       <main>
-        <p>Welcome to Boss Dot's fun lil edging game!!</p>
+        <p>A lil edging game!!</p>
         <p>pick a plant:</p>
         <div className="button-group">
           <button 
