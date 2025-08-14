@@ -4,7 +4,7 @@ import '../styles.css';
 import peachImage from '../assets/peach.png';
 import eggplantImage from '../assets/eggplant.png';
 
-const About = () => {
+const EdgeGame = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [progress, setProgress] = useState(0);
   const [counter, setCounter] = useState(0);
@@ -33,7 +33,7 @@ const About = () => {
       setProgress((prev) => Math.max(prev - 2, 0)); // Decrease by 2%, stop at 0%
     }, 500); // Every 500ms
 
-    return () => clearInterval(interval); // Clear interval on image hide or unmount
+    return () => clearInterval(interval); 
   }, [selectedImage, isRuined]);
 
   // Increment counter when progress reaches or exceeds 75%
@@ -50,7 +50,6 @@ const About = () => {
   useEffect(() => {
     if (progress === 100) {
       setIsRuined(true);
-      // Reset game after 2 seconds
       const timeout = setTimeout(() => {
         setSelectedImage(null);
         setProgress(0);
@@ -58,7 +57,7 @@ const About = () => {
         setHasReachedThreshold(false);
         setIsRuined(false);
       }, 2000);
-      return () => clearTimeout(timeout); // Clear timeout on unmount
+      return () => clearTimeout(timeout);
     }
   }, [progress]);
 
@@ -127,4 +126,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default EdgeGame;

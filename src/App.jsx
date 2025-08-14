@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import BarkOMeter from './components/BarkOMeter';
-import About from './components/About';
+import EdgeGame from './components/EdgeGame';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<BarkOMeter />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/edgegame" element={<EdgeGame />} />
       </Routes>
     </BrowserRouter>
   );

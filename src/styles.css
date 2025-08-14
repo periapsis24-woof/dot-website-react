@@ -46,6 +46,7 @@ main {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding-bottom: 6rem; /* Space for fixed footer/back button */
 }
 
 main p {
@@ -142,7 +143,7 @@ footer {
   text-align: center;
   padding: 1rem 0;
   position: fixed;
-  bottom: 4rem;
+  bottom: 3rem; /* Reduced for mobile */
   left: 50%;
   transform: translateX(-50%);
 }
@@ -176,6 +177,59 @@ footer {
   text-align: center;
   margin: 1rem 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 600px) {
+  header h1 {
+    font-size: 2rem; /* Smaller heading */
+  }
+
+  main {
+    padding: 1rem;
+    padding-bottom: 8rem; /* More space for fixed elements */
+  }
+
+  main p {
+    font-size: 1.2rem; /* Smaller text */
+  }
+
+  .centered-image {
+    max-height: 200px; /* Reduce image height */
+  }
+
+  .counter {
+    font-size: 1rem; /* Smaller counter text */
+  }
+
+  .ruined-text {
+    font-size: 2rem; /* Smaller R U I N E D text */
+  }
+
+  .progress-bar {
+    max-width: 80%; /* Scale with viewport */
+    height: 15px; /* Thinner progress bar */
+  }
+
+  .nav-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem; /* Smaller buttons */
+    margin: 0.5rem;
+  }
+
+  .button-group {
+    gap: 0.5rem; /* Tighter button spacing */
+  }
+
+  .back-button-container {
+    bottom: 4rem; /* Higher to avoid overlap */
+  }
+
+  footer {
+    padding: 0.5rem;
+    font-size: 0.9rem; /* Smaller footer text */
+    bottom: 0;
+  }
 }
 /* coolors.co */
 /* 944dc7 */

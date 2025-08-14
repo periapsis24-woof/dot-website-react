@@ -56,7 +56,7 @@ const BarkOMeter = () => {
           <button id="increment-button" onClick={handleIncrement}>
             w o o f ! ! ໒(＾ᴥ＾)७
           </button>
-          <Link to="/about" className="nav-button">
+          <Link to="/edgegame" className="nav-button">
             Edgies!
           </Link>
         </div>
