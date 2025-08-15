@@ -90,14 +90,43 @@
 }
 .progress-bar {
   width: 100%;
-  max-width: 250px;
-  height: 12px;
+  max-width: 300px;
+  height: 16px;
   background-color: #bbaaee;
   border-radius: 8px;
   overflow: hidden;
   margin-top: 0.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  position: relative; /* Make progress-bar the positioning context */
+  position: relative;
+}
+
+.progress-marker {
+  position: absolute;
+  top: 0;
+  left: calc(var(--threshold, 75%) - 1.5px);
+  width: 3px;
+  height: 100%;
+  background-color: #944dc7;
+  z-index: 1;
+  transition: left 0.3s ease-in-out;
+}
+.progress-current-marker {
+  position: absolute;
+  top: -8px;
+  left: calc(var(--progress, 0%) - 16px);
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  z-index: 2;
+  transition: left 0.3s ease-in-out;
+}
+
+.subby-saves {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #af72d9;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .progress-marker {
@@ -181,22 +210,27 @@
     font-size: 0.9rem;
     margin: 0.3rem;
   }
-  .progress-current-marker {
-    width: 20px;
-    height: 20px;
-    top: -5px;
-    left: calc(var(--progress, 0%) - 10px);
+  .progress-bar {
+    max-width: 90%;
+    height: 14px;
   }
 
   .progress-marker {
-    width: 1px;
+    width: 2px;
+  }
+
+  .progress-current-marker {
+    width: 28px;
+    height: 28px;
+    top: -7px;
+    left: calc(var(--progress, 0%) - 14px);
+  }
+
+  .subby-saves {
+    font-size: 0.7rem;
   }
 }
   .ruined-text {
     font-size: 1.5rem;
   }
 
-  .progress-bar {
-    max-width: 80%;
-    height: 10px;
-  }
