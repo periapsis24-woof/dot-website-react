@@ -1,0 +1,135 @@
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.centered-image {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.wiggle-low {
+  animation: wiggle-low 0.3s ease-in-out;
+}
+
+.wiggle-medium {
+  animation: wiggle-medium 0.3s ease-in-out;
+}
+
+.wiggle-high {
+  animation: wiggle-high 0.3s ease-in-out;
+}
+
+.counter {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #af72d9;
+  margin: 0.5rem 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.progress-bar {
+  width: 100%;
+  max-width: 250px;
+  height: 12px;
+  background-color: #bbaaee;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #af72d9;
+  transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.progress-fill-dark {
+  background-color: #944dc7;
+}
+
+.ruined-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff0000;
+  font-family: 'Quicksand', sans-serif;
+  text-align: center;
+  margin: 0.5rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes wiggle-low {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-3px) rotate(-3deg); }
+  50% { transform: translateX(3px) rotate(3deg); }
+  75% { transform: translateX(-3px) rotate(-3deg); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes wiggle-medium {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px) rotate(-6deg); }
+  50% { transform: translateX(6px) rotate(6deg); }
+  75% { transform: translateX(-6px) rotate(-6deg); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes wiggle-high {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px) rotate(-10deg); }
+  50% { transform: translateX(10px) rotate(10deg); }
+  75% { transform: translateX(-10px) rotate(-10deg); }
+  100% { transform: translateX(0); }
+}
+.progress-bar {
+  width: 100%;
+  max-width: 250px;
+  height: 12px;
+  background-color: #bbaaee;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative; /* Make progress-bar the positioning context */
+}
+
+.progress-marker {
+  position: absolute;
+  top: 0;
+  left: calc(var(--threshold, 75%) - 1px); /* Center marker on threshold */
+  width: 2px;
+  height: 100%;
+  background-color: #944dc7;
+  z-index: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .progress-bar {
+    max-width: 80%;
+    height: 10px;
+  }
+
+  .progress-marker {
+    width: 1px;
+  }
+}
+
+  .counter {
+    font-size: 0.9rem;
+  }
+
+  .ruined-text {
+    font-size: 1.5rem;
+  }
+
+  .progress-bar {
+    max-width: 80%;
+    height: 10px;
+  }
