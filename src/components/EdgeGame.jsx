@@ -12,6 +12,8 @@ const EdgeGame = () => {
   const [isRuined, setIsRuined] = useState(false);
   const [clickKey, setClickKey] = useState(0);
   const [darkThreshold, setDarkThreshold] = useState(75);
+  const [edgeZoneTime, setEdgeZoneTime] = useState(0);
+  const [subbySaves, setSubbySaves] = useState(3);
 
   const handleImageToggle = (image) => {
     setSelectedImage(selectedImage === image ? null : image);
@@ -20,57 +22,89 @@ const EdgeGame = () => {
     setHasReachedThreshold(false);
     setIsRuined(false);
     setDarkThreshold(75);
+    setEdgeZoneTime(0);
+    setSubbySaves(3);
   };
 
   const handleImageClick = () => {
-    setProgress((prev) => Math.min(prev + 10, 100));
+    setProgress((prev) => {
+      const increment = prev < 50 ? 5 : 10;
+      const newProgress = prev + increment;
+      if (newProgress > 100 && subbySaves > 0) {
+        setSubbySaves((prevSaves) => Math.max(prevSaves - 1, 0));
+        return Number(75..toFixed(1)); // Reset to edge zone start
+      }
+      return Number(Math.min(newProgress, 100).toFixed(1));
+    });
     setClickKey((prev) => prev + 1);
+  };
+
+  const handleReset = () => {
+    setSelectedImage(null);
+    setProgress(0);
+    setCounter(0);
+    setHasReachedThreshold(false);
+    setIsRuined(false);
+    setDarkThreshold(75);
+    setEdgeZoneTime(0);
+    setSubbySaves(3);
   };
 
   useEffect(() => {
     if (!selectedImage || isRuined) return;
 
     const interval = setInterval(() => {
-      setProgress((prev) => Math.max(prev - 2, 0));
+      setProgress((prev) => {
+        const decrement = prev >= darkThreshold ? 2 - counter * 0.25 : 3 - counter * 0.25;
+        return Number(Math.max(prev - decrement, 0).toFixed(1));
+      });
     }, 500);
 
     return () => clearInterval(interval);
-  }, [selectedImage, isRuined]);
+  }, [selectedImage, isRuined, darkThreshold, counter]);
 
   useEffect(() => {
     if (!selectedImage || isRuined) return;
 
     const interval = setInterval(() => {
-      setDarkThreshold((prev) => Math.max(prev - 0.5, 75));
+      setDarkThreshold((prev) => Number(Math.max(prev - 0.5, 75).toFixed(1)));
     }, 1000);
 
     return () => clearInterval(interval);
   }, [selectedImage, isRuined]);
 
   useEffect(() => {
+    if (!selectedImage || isRuined || progress < darkThreshold) return;
+
+    const interval = setInterval(() => {
+      setEdgeZoneTime((prev) => prev + 0.01);
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, [selectedImage, isRuined, progress, darkThreshold]);
+
+  useEffect(() => {
     if (progress >= darkThreshold && !hasReachedThreshold && !isRuined) {
       setCounter((prev) => prev + 1);
       setHasReachedThreshold(true);
-      setDarkThreshold((prev) => Math.min(prev + 5, 100));
+      setDarkThreshold((prev) => Number(Math.min(prev + 5, 100).toFixed(1)));
     } else if (progress < darkThreshold) {
       setHasReachedThreshold(false);
     }
   }, [progress, hasReachedThreshold, isRuined, darkThreshold]);
 
   useEffect(() => {
-    if (progress === 100) {
+    if (progress >= 100 && subbySaves === 0) {
       setIsRuined(true);
-      const timeout = setTimeout(() => {
-        setSelectedImage(null);
-        setProgress(0);
-        setCounter(0);
-        setHasReachedThreshold(false);
-        setIsRuined(false);
-        setDarkThreshold(75);
-      }, 2000);
-      return () => clearTimeout(timeout);
+      setEdgeZoneTime((prev) => prev);
     }
-  }, [progress]);
+  }, [progress, subbySaves]);
+
+  const formatTime = () => {
+    const seconds = Math.floor(edgeZoneTime);
+    const milliseconds = Math.round((edgeZoneTime - seconds) * 100);
+    return `${seconds}.${milliseconds.toString().padStart(2, '0')}s`;
+  };
 
   const getWiggleClass = () => {
     if (progress >= 75) return 'wiggle-high';
@@ -109,7 +143,24 @@ const EdgeGame = () => {
         {selectedImage && (
           <div className="image-container">
             {isRuined ? (
-              <p className="ruined-text">R U I N E D</p>
+              <>
+                <p className="ruined-text">R U I N E D</p>
+                <img
+                  src={selectedImage === 'peach' ? peachImage : eggplantImage}
+                  alt={selectedImage === 'peach' ? 'Peach' : 'Eggplant'}
+                  className="centered-image"
+                />
+                <p className="counter">Edge Count: {counter}</p>
+                <p className="timer">Edge Time: {formatTime()}</p>
+                <p className="subby-saves">Subby Saves: {subbySaves}</p>
+                <button
+                  className="nav-button reset-button"
+                  onClick={handleReset}
+                  aria-label="Reset game"
+                >
+                  Reset Game
+                </button>
+              </>
             ) : (
               <>
                 <img
@@ -121,7 +172,11 @@ const EdgeGame = () => {
                   aria-label={`Click to progress ${selectedImage === 'peach' ? 'peach' : 'eggplant'} meter`}
                   key={clickKey}
                 />
-                <p className="counter">Edge Count: {counter}</p>
+                <div className="stats-container">
+                  <p className="counter">Edge Count: {counter}</p>
+                  <p className="timer">Edge Time: {formatTime()}</p>
+                </div>
+                <p className="subby-saves">Subby Saves: {subbySaves}</p>
                 <div
                   className="progress-bar"
                   style={{ '--threshold': `${darkThreshold}%`, '--progress': `${progress}%` }}
