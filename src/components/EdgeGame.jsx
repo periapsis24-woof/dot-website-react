@@ -23,7 +23,7 @@ const EdgeGame = () => {
   };
 
   const handleImageClick = () => {
-    setProgress((prev) => Math.min(prev + 10 + (prev*.05), 100));
+    setProgress((prev) => Math.min(prev + 10, 100));
     setClickKey((prev) => prev + 1);
   };
 
@@ -41,7 +41,7 @@ const EdgeGame = () => {
     if (!selectedImage || isRuined) return;
 
     const interval = setInterval(() => {
-      setDarkThreshold((prev) => Math.max(prev - .5, 75));
+      setDarkThreshold((prev) => Math.max(prev - 0.5, 75));
     }, 1000);
 
     return () => clearInterval(interval);
@@ -122,7 +122,10 @@ const EdgeGame = () => {
                   key={clickKey}
                 />
                 <p className="counter">Edge Count: {counter}</p>
-                <div className="progress-bar">
+                <div
+                  className="progress-bar"
+                  style={{ '--threshold': `${darkThreshold}%`, '--progress': `${progress}%` }}
+                >
                   <div
                     className={`progress-fill ${progress >= darkThreshold ? 'progress-fill-dark' : ''}`}
                     style={{ width: `${progress}%` }}
@@ -132,9 +135,11 @@ const EdgeGame = () => {
                     aria-valuemax="100"
                     aria-label="Progress for selected image"
                   />
-                  <div
-                    className="progress-marker"
-                    style={{ left: `${darkThreshold}%` }}
+                  <div className="progress-marker" />
+                  <img
+                    src={selectedImage === 'peach' ? peachImage : eggplantImage}
+                    alt="Progress marker"
+                    className="progress-current-marker"
                   />
                 </div>
               </>
