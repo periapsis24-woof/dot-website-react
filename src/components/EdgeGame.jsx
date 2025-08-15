@@ -32,7 +32,7 @@ const EdgeGame = () => {
       const newProgress = prev + increment;
       if (newProgress > 100 && subbySaves > 0) {
         setSubbySaves((prevSaves) => Math.max(prevSaves - 1, 0));
-        return Number(75..toFixed(1)); // Reset to edge zone start
+        return Number(75..toFixed(1));
       }
       return Number(Math.min(newProgress, 100).toFixed(1));
     });
@@ -56,7 +56,7 @@ const EdgeGame = () => {
     const interval = setInterval(() => {
       setProgress((prev) => {
         const decrement = prev >= darkThreshold ? 2 - counter * 0.25 : 3 - counter * 0.25;
-        return Number(Math.max(prev - decrement, 0).toFixed(1));
+        return Number(Math.max(prev - Math.max(decrement, 0), 0).toFixed(1));
       });
     }, 500);
 
