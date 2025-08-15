@@ -32,7 +32,7 @@ const EdgeGame = () => {
       const newProgress = prev + increment;
       if (newProgress > 100 && subbySaves > 0) {
         setSubbySaves((prevSaves) => Math.max(prevSaves - 1, 0));
-        return Number(75..toFixed(1));
+        return Number((75).toFixed(1));
       }
       return Number(Math.min(newProgress, 100).toFixed(1));
     });
@@ -55,8 +55,9 @@ const EdgeGame = () => {
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const decrement = prev >= darkThreshold ? 2 - counter * 0.25 : 3 - counter * 0.25;
-        return Number(Math.max(prev - Math.max(decrement, 0), 0).toFixed(1));
+        const baseDecrement = prev >= darkThreshold ? 2 : 3;
+        const decrement = Math.max(baseDecrement - counter * 0.25, 0.5);
+        return Number(Math.max(prev - decrement, 0).toFixed(1));
       });
     }, 500);
 
@@ -84,11 +85,13 @@ const EdgeGame = () => {
   }, [selectedImage, isRuined, progress, darkThreshold]);
 
   useEffect(() => {
-    if (progress >= darkThreshold && !hasReachedThreshold && !isRuined) {
+    const roundedProgress = Number(progress.toFixed(1));
+    const roundedThreshold = Number(darkThreshold.toFixed(1));
+    if (roundedProgress >= roundedThreshold && !hasReachedThreshold && !isRuined) {
       setCounter((prev) => prev + 1);
       setHasReachedThreshold(true);
       setDarkThreshold((prev) => Number(Math.min(prev + 5, 100).toFixed(1)));
-    } else if (progress < darkThreshold) {
+    } else if (roundedProgress < roundedThreshold) {
       setHasReachedThreshold(false);
     }
   }, [progress, hasReachedThreshold, isRuined, darkThreshold]);
