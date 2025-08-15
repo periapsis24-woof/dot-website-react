@@ -119,8 +119,68 @@
   z-index: 2;
   transition: left 0.3s ease-in-out;
 }
+.timer {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #af72d9;
+  margin: 0.5rem 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.reset-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #af72d9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: 'Fuzzy Bubbles', cursive;
+  text-decoration: none;
+  transition: transform 0.2s, background-color 0.2s;
+  margin: 0.5rem;
+}
+
+.reset-button:hover {
+  background-color: #944dc7;
+  transform: scale(1.05);
+}
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+
+.counter {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #af72d9;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.timer {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #af72d9;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}
 
 @media screen and (max-width: 600px) {
+  .counter {
+    font-size: 0.7rem;
+  }
+  .timer {
+    font-size: 0.7rem;
+  }
+  .reset-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    margin: 0.3rem;
+  }
   .progress-current-marker {
     width: 20px;
     height: 20px;
@@ -132,11 +192,6 @@
     width: 1px;
   }
 }
-
-  .counter {
-    font-size: 0.9rem;
-  }
-
   .ruined-text {
     font-size: 1.5rem;
   }

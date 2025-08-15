@@ -12,6 +12,7 @@ const EdgeGame = () => {
   const [isRuined, setIsRuined] = useState(false);
   const [clickKey, setClickKey] = useState(0);
   const [darkThreshold, setDarkThreshold] = useState(75);
+  const [edgeZoneTime, setEdgeZoneTime] = useState(0);
 
   const handleImageToggle = (image) => {
     setSelectedImage(selectedImage === image ? null : image);
@@ -20,11 +21,22 @@ const EdgeGame = () => {
     setHasReachedThreshold(false);
     setIsRuined(false);
     setDarkThreshold(75);
+    setEdgeZoneTime(0);
   };
 
   const handleImageClick = () => {
     setProgress((prev) => Math.min(prev + 10, 100));
     setClickKey((prev) => prev + 1);
+  };
+
+  const handleReset = () => {
+    setSelectedImage(null);
+    setProgress(0);
+    setCounter(0);
+    setHasReachedThreshold(false);
+    setIsRuined(false);
+    setDarkThreshold(75);
+    setEdgeZoneTime(0);
   };
 
   useEffect(() => {
@@ -48,6 +60,16 @@ const EdgeGame = () => {
   }, [selectedImage, isRuined]);
 
   useEffect(() => {
+    if (!selectedImage || isRuined || progress < darkThreshold) return;
+
+    const interval = setInterval(() => {
+      setEdgeZoneTime((prev) => prev + 0.01);
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, [selectedImage, isRuined, progress, darkThreshold]);
+
+  useEffect(() => {
     if (progress >= darkThreshold && !hasReachedThreshold && !isRuined) {
       setCounter((prev) => prev + 1);
       setHasReachedThreshold(true);
@@ -60,17 +82,15 @@ const EdgeGame = () => {
   useEffect(() => {
     if (progress === 100) {
       setIsRuined(true);
-      const timeout = setTimeout(() => {
-        setSelectedImage(null);
-        setProgress(0);
-        setCounter(0);
-        setHasReachedThreshold(false);
-        setIsRuined(false);
-        setDarkThreshold(75);
-      }, 2000);
-      return () => clearTimeout(timeout);
+      setEdgeZoneTime((prev) => prev);
     }
   }, [progress]);
+
+  const formatTime = () => {
+    const seconds = Math.floor(edgeZoneTime);
+    const milliseconds = Math.round((edgeZoneTime - seconds) * 100);
+    return `${seconds}.${milliseconds.toString().padStart(2, '0')}s`;
+  };
 
   const getWiggleClass = () => {
     if (progress >= 75) return 'wiggle-high';
@@ -109,7 +129,23 @@ const EdgeGame = () => {
         {selectedImage && (
           <div className="image-container">
             {isRuined ? (
-              <p className="ruined-text">R U I N E D</p>
+              <>
+                <p className="ruined-text">R U I N E D</p>
+                <img
+                  src={selectedImage === 'peach' ? peachImage : eggplantImage}
+                  alt={selectedImage === 'peach' ? 'Peach' : 'Eggplant'}
+                  className="centered-image"
+                />
+                <p className="counter">Edge Count: {counter}</p>
+                <p className="timer">Edge Time: {formatTime()}</p>
+                <button
+                  className="nav-button reset-button"
+                  onClick={handleReset}
+                  aria-label="Reset game"
+                >
+                  Reset Game
+                </button>
+              </>
             ) : (
               <>
                 <img
@@ -121,7 +157,10 @@ const EdgeGame = () => {
                   aria-label={`Click to progress ${selectedImage === 'peach' ? 'peach' : 'eggplant'} meter`}
                   key={clickKey}
                 />
-                <p className="counter">Edge Count: {counter}</p>
+                <div className="stats-container">
+                  <p className="counter">Edge Count: {counter}</p>
+                  <p className="timer">Edge Time: {formatTime()}</p>
+                </div>
                 <div
                   className="progress-bar"
                   style={{ '--threshold': `${darkThreshold}%`, '--progress': `${progress}%` }}
@@ -153,7 +192,7 @@ const EdgeGame = () => {
         </Link>
       </div>
       <footer>
-        <p>© 2025 Boss' Puppy Programmer ໒(＾ᴥ＾)７</p>
+        <p>© 2025 Boss' Puppy Programmer ໒(＾ᴥ＾)७</p>
       </footer>
     </>
   );
