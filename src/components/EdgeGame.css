@@ -109,11 +109,23 @@
   background-color: #944dc7;
   z-index: 1;
 }
+.progress-current-marker {
+  position: absolute;
+  top: -6px; /* Stick out above progress bar */
+  left: calc(var(--progress, 0%) - 12px); /* Center on progress */
+  width: 24px;
+  height: 24px; /* Larger than progress bar height */
+  object-fit: contain;
+  z-index: 2;
+  transition: left 0.3s ease-in-out;
+}
 
 @media screen and (max-width: 600px) {
-  .progress-bar {
-    max-width: 80%;
-    height: 10px;
+  .progress-current-marker {
+    width: 20px;
+    height: 20px;
+    top: -5px;
+    left: calc(var(--progress, 0%) - 10px);
   }
 
   .progress-marker {
