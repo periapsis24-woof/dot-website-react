@@ -137,15 +137,8 @@
   font-size: 1.2rem;
   font-family: 'Fuzzy Bubbles', cursive;
   text-align: center;
-  transition: background-color 0.2s, transform 0.2s;
   width: 120px;
   margin-top: 0.3rem;
-}
-
-/* Hover effect for decrement mode select */
-.settings-panel select:hover {
-  background-color: #944dc7;
-  transform: scale(1.1);
 }
 
 /* reset settings button */
