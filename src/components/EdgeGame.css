@@ -48,30 +48,25 @@
 }
 
 /* edge count text, big and bold */
-.counter {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #af72d9;
-  margin: 0.5rem 0;
-  font-family: 'Quicksand', sans-serif;
-}
-
-/* edge time text, matching counter */
-.timer {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #af72d9;
-  margin: 0.5rem 0;
-  font-family: 'Quicksand', sans-serif;
-}
-
-/* stats container, spaced out wide */
-.stats-container {
+.stats-label {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin: 1rem 0;
-  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.2rem;
+  color: #333;
+  font-family: 'Quicksand', sans-serif;
+}
+/* stats container, spaced out wide */
+.left-panel {
+  margin-right: 20px;
+  
+
+}
+.stats-panel {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ADA2CE;
 }
 
 /* container for stats and progress bar */
@@ -123,37 +118,6 @@
   border-radius: 8px;
   width: 100px;
   margin-top: 0.3rem;
-}
-
-.settings-panel select {
-  padding: 0.5rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  font-family: 'Fuzzy Bubbles', cursive;
-  text-align: center;
-  transition: background-color 0.2s, transform 0.2s;
-  width: 120px;
-  margin-top: 0.3rem;
-}
-
-/* Hover effect for decrement mode select */
-.settings-panel select:hover {
-  background-color: #944dc7;
-  transform: scale(1.1);
-}
-
-/* reset settings button */
-.reset-settings {
-  background-color: #ff0000;
-  scale: 75%;
-}
-
-/* reset settings button hover */
-.reset-settings:hover {
-  background-color: #cc0000;
-  transform: scale(1.1);
 }
 
 /* progress bar, stretches across screen */
@@ -218,7 +182,7 @@
 }
 
 /* cum zone marker, red at start of cum zone */
-/* .cum-zone-marker {
+.cum-zone-marker {
   position: absolute;
   top: 0;
   left: calc(var(--cum-zone-start, 95%) - 2.5px);
@@ -227,7 +191,7 @@
   background-color: #ff0000;
   z-index: 1;
   transition: left 0.3s ease-in-out;
-} */
+}
 
 /* progress marker, big image */
 .progress-current-marker {
@@ -361,4 +325,151 @@
   .ruined-text {
     font-size: 1.5rem;
   }
+}
+
+/* New styles from inline */
+
+.edge-game-main {
+  background-color: #F3F0FF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.edge-game-header {
+  color: #322165;
+  font-size: 2rem;
+  margin: 0px;
+  text-align: center;
+  width: 100%;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edge-game-back-button {
+  color: #322165;
+  width: 250px;
+  padding-left: 20px;
+
+}
+.edge-game-header-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  background: white;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 100px;
+  border-bottom: 1px solid #ADA2CE;
+}
+
+.edge-game-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.settings-panel {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ADA2CE;
+  height: 54%;
+
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.settings-header h2 {
+  color: #322165;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.reset-button {
+  background-color: #322165;
+  color: #FFFFFF;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 1q0px;
+  cursor: pointer;
+}
+
+.settings-label {
+  display: block;
+  color: #322165;
+  margin-bottom: 10px;
+}
+
+.settings-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ADA2CE;
+  margin-top: 5px;
+}
+
+.game-area {
+  width: 70%;
+  background-color: #FFFFFF;
+  padding: 40px;
+  border-radius: 10px;
+  border: 6px solid #322165;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ruined-text {
+  color: #322165;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.play-again-button {
+  background-color: #322165;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.eggplant-image {
+  max-width: 200px;
+  cursor: pointer;
+  margin-bottom: 100px;
+}
+
+.progress-bar-container {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  height: 20px;
+  background-color: #C4F4DA;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s;
+}
+
+.progress-marker {
+  position: absolute;
+  top: -15px;
+  left: calc(var(--progress, 0%) - 15px);
+  width: 30px;
 }

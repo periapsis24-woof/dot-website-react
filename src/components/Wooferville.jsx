@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles.css';
+import './Wooferville.css';
 
-const BarkOMeter = () => {
+const Wooferville = () => {
   const [count, setCount] = useState(null);
   const [error, setError] = useState(null);
   const snd = new Audio('/woof3.m4a');
@@ -47,29 +47,24 @@ const BarkOMeter = () => {
 
   return (
     <>
-      <header className="header">
-        <h1>Boss Dot's Bark-O-Meter</h1>
+      <header>
+        <h1>Welcome to Wooferville!</h1>
       </header>
-      <main className="main">
-        <p className=''>
-          Total Woofs: <span id="visitor-count">{error || count || 'Loading...'}</span>
-        </p>
-        <div className="button-group"> 
-          <button className="nav-button" onClick={handleIncrement}>
-            w o o f ! ! ໒(＾ᴥ＾)７
-          </button>
+      <div className="content">
+        <p className="population">Population: <span id="visitor-count">{error || count || 'Loading...'}</span> woofs</p>
+        <div className='button-container'>
+            <div className="button-group"> 
+                <button className="button puppy-button" onClick={handleIncrement}>
+                    ໒(＾ᴥ＾)७
+                </button>
+                <Link to="/EdgeGame" className="button eggplant-button">
+                    Eggplant Edgies
+                </Link>
+            </div>
         </div>
-        <div className="button-group">
-          <Link to="/EdgeGame" className="nav-button">
-            Edge Game!
-          </Link>
-        </div>
-      </main>
-      <footer>
-        <p>© 2025 Boss' puppy programmer ໒(＾ᴥ＾)７</p>
-      </footer>
+      </div>
     </>
   );
 };
 
-export default BarkOMeter;
+export default Wooferville;
