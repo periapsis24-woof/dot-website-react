@@ -5,6 +5,8 @@ const GAME_CONFIG = {
   EDGE_ZONE_MAX: 94,
   CUM_ZONE_MIN: 95,
   INCREMENT: 2, // all zones
+  DECREMENT: 10,
+  DECREMENT_MODE: 'halve', // 'halve' or 'subtract'
   TEASE_DECAY_INTERVAL: 500, // ms
   EDGE_DECAY_INTERVAL: 200, // ms
   DECREMENT_INTERVAL: 10, // base tick for halving

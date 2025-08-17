@@ -76,7 +76,7 @@ const useEdgeGame = () => {
 
   // update config from settings form
   const updateConfig = (key, value) => {
-    setConfig((prev) => ({ ...prev, [key]: Number(value) }));
+    setConfig((prev) => ({ ...prev, [key]: key === 'DECREMENT_MODE' ? value : Number(value) }));
   };
 
   // main game loop, runs every 10ms
@@ -93,16 +93,26 @@ const useEdgeGame = () => {
       if (progress <= config.TEASE_ZONE_MAX && tickCount % (config.TEASE_DECAY_INTERVAL / 10) === 0) {
         setProgress((prev) => {
           if (lastClickTime && Date.now() - lastClickTime < config.TEASE_DECAY_INTERVAL) return prev;
-          const halved = Math.ceil(prev / 2);
-          return Number(Math.max(halved % 2 === 0 ? halved : halved + 1, 0).toFixed(1));
+          let newPrev;
+          if (config.DECREMENT_MODE === 'halve') {
+            newPrev = Math.floor(prev / 2);
+          } else {
+            newPrev = prev - config.DECREMENT;
+          }
+          return Number(Math.max(newPrev, 0).toFixed(1));
         });
       }
       // edge zone decay every 200ms
       if (progress >= config.EDGE_ZONE_MIN && progress <= config.EDGE_ZONE_MAX && tickCount % (config.EDGE_DECAY_INTERVAL / 10) === 0) {
         setProgress((prev) => {
           if (lastClickTime && Date.now() - lastClickTime < config.EDGE_DECAY_INTERVAL) return prev;
-          const halved = Math.ceil(prev / 2);
-          return Number(Math.max(halved % 2 === 0 ? halved : halved + 1, 0).toFixed(1));
+          let newPrev;
+          if (config.DECREMENT_MODE === 'halve') {
+            newPrev = Math.floor(prev / 2);
+          } else {
+            newPrev = prev - config.DECREMENT;
+          }
+          return Number(Math.max(newPrev, 0).toFixed(1));
         });
       }
     }, 10);
@@ -120,130 +130,101 @@ const useEdgeGame = () => {
     }
   }, [progress, hasReachedThreshold, isRuined, config]);
 
-  // format timer to nearest second
-  const formatTime = () => {
-    const seconds = Math.round(edgeZoneTime);
-    return `${seconds}s`;
-  };
-
-  // set wiggle animation based on progress
   const getWiggleClass = () => {
     if (progress >= config.EDGE_ZONE_MIN) return 'wiggle-high';
-    if (progress >= 30) return 'wiggle-medium';
+    if (progress >= (config.TEASE_ZONE_MAX / 2)) return 'wiggle-medium';
     return 'wiggle-low';
   };
 
-  // return all the good stuff for the component
+  const formatTime = () => {
+    return `${Math.floor(edgeZoneTime)}s`;
+  };
+
   return {
     selectedImage,
     progress,
     counter,
-    edgeZoneTime,
     isRuined,
     clickKey,
+    edgeZoneTime,
     config,
     handleImageToggle,
     handleImageClick,
     handleReset,
-    updateConfig,
     resetConfig,
-    formatTime,
+    updateConfig,
     getWiggleClass,
+    formatTime,
   };
 };
 
-// main component for the game
 const EdgeGame = () => {
-  // grab all the game state and handlers
   const {
     selectedImage,
     progress,
     counter,
-    edgeZoneTime,
     isRuined,
     clickKey,
+    edgeZoneTime,
     config,
     handleImageToggle,
     handleImageClick,
     handleReset,
-    updateConfig,
     resetConfig,
-    formatTime,
+    updateConfig,
     getWiggleClass,
+    formatTime,
   } = useEdgeGame();
 
-  // render the game ui
   return (
     <>
       <header>
         <h1>...edgies?? EDGIES!!!</h1>
       </header>
       <main>
-        {/* show welcome text if no image selected */}
         {!selectedImage && (
           <>
-            <p className="welcome-text">welcome to boss dot's fun lil edging game!!</p>
+            <p className="welcome-text">Welcome to Boss Dot's fun lil edging game!!</p>
             <p className="welcome-text">pick a plant:</p>
-          </>
-        )}
-        {/* buttons to pick plant or go back */}
-        <div className="button-group">
-          {selectedImage ? (
-            <Link to="/" className="nav-button">
-              Back to Bark-O-Meter
-            </Link>
-          ) : (
-            <>
+            <div className="button-group">
               <button
                 className="nav-button"
                 onClick={() => handleImageToggle('peach')}
-                aria-label="show or hide peach image"
+                aria-label="Show or hide peach image"
               >
                 Peach
               </button>
               <button
                 className="nav-button"
                 onClick={() => handleImageToggle('eggplant')}
-                aria-label="show or hide eggplant image"
+                aria-label="Show or hide eggplant image"
               >
                 Eggplant
               </button>
-            </>
-          )}
-        </div>
-        {/* game content when image is selected */}
+            </div>
+          </>
+        )}
+        {selectedImage && (
+          <div className="button-group">
+            <Link to="/" className="nav-button" onClick={handleReset}>
+              Back to Bark-O-Meter
+            </Link>
+          </div>
+        )}
         {selectedImage && (
           <div className="game-container">
             <div className="image-container">
               {isRuined ? (
-                <>
-                  {/* ruin state with stats and reset button */}
-                  <p className="ruined-text">r u i n e d</p>
-                  <img
-                    src={selectedImage === 'peach' ? peachImage : eggplantImage}
-                    alt={selectedImage === 'peach' ? 'Peach' : 'Eggplant'}
-                    className="centered-image"
-                  />
-                  <p className="counter">edge count: {counter}</p>
-                  <p className="timer">edge time: {formatTime()}</p>
-                  <button
-                    className="nav-button reset-button"
-                    onClick={handleReset}
-                    aria-label="reset game"
-                  >
-                    Reset Game
-                  </button>
-                </>
+                <p className="ruined-text">R U I N E D</p>
               ) : (
                 <>
-                  {/* main game ui with clickable image and stats */}
                   <img
                     src={selectedImage === 'peach' ? peachImage : eggplantImage}
                     alt={selectedImage === 'peach' ? 'Peach' : 'Eggplant'}
                     className={`centered-image ${getWiggleClass()}`}
                     onClick={handleImageClick}
                     role="button"
-                    aria-label={`click to progress ${selectedImage === 'peach' ? 'peach' : 'eggplant'} meter`}
+                    aria-label={`Click to progress ${selectedImage === 'peach' ? 'peach' : 'eggplant'} meter`}
                     key={clickKey}
                   />
                   <div className="game-bottom-container">
@@ -287,76 +268,81 @@ const EdgeGame = () => {
             {/* settings panel next to game */}
             {selectedImage && (
             <div className="settings-panel">
-              <h2>tweak game settings</h2>
+              <h2>game settings!!</h2>
               <label>
-                tease zone max (0-59):
+                tease zone range (green bar):
                 <input
                   type="number"
                   value={config.TEASE_ZONE_MAX}
                   onChange={(e) => updateConfig('TEASE_ZONE_MAX', e.target.value)}
                   min="0"
-                  max="59"
-                />
-              </label>
-              <label>
-                edge zone min (60-94):
-                <input
-                  type="number"
-                  value={config.EDGE_ZONE_MIN}
-                  onChange={(e) => updateConfig('EDGE_ZONE_MIN', e.target.value)}
-                  min="60"
-                  max="94"
-                />
-              </label>
-              <label>
-                edge zone max (60-94):
-                <input
-                  type="number"
-                  value={config.EDGE_ZONE_MAX}
-                  onChange={(e) => updateConfig('EDGE_ZONE_MAX', e.target.value)}
-                  min="60"
-                  max="94"
-                />
-              </label>
-              <label>
-                cum zone min (95-100):
-                <input
-                  type="number"
-                  value={config.CUM_ZONE_MIN}
-                  onChange={(e) => updateConfig('CUM_ZONE_MIN', e.target.value)}
-                  min="95"
                   max="100"
                 />
               </label>
               <label>
-                increment per click (0-10):
+                edge zone range (yellow bar):
+                <input
+                  type="number"
+                  value={config.EDGE_ZONE_MAX}
+                  onChange={(e) => updateConfig('EDGE_ZONE_MAX', e.target.value)}
+                  min="0"
+                  max="100"
+                />
+              </label>
+              <label>
+                increment per click:
                 <input
                   type="number"
                   value={config.INCREMENT}
                   onChange={(e) => updateConfig('INCREMENT', e.target.value)}
                   min="0"
-                  max="10"
-                  step="0.1"
+                  max="100"
+                  step="1"
                 />
               </label>
               <label>
-                tease decay interval (ms, 100-1000):
+                decrement mode:
+                <select
+                  value={config.DECREMENT_MODE}
+                  onChange={(e) => updateConfig('DECREMENT_MODE', e.target.value)}
+                >
+                  <option value="halve">Halve</option>
+                  <option value="subtract">Subtract</option>
+                </select>
+              </label>
+              {config.DECREMENT_MODE === 'subtract' && (
+                <label>
+                  decrement per decrease:
+                  <input
+                    type="number"
+                    value={config.DECREMENT}
+                    onChange={(e) => updateConfig('DECREMENT', e.target.value)}
+                    min="0"
+                    max="100"
+                    step="1"
+                  />
+                </label>
+              )}
+              <label>
+                tease zone decay time (ms):
                 <input
                   type="number"
                   value={config.TEASE_DECAY_INTERVAL}
                   onChange={(e) => updateConfig('TEASE_DECAY_INTERVAL', e.target.value)}
                   min="100"
                   max="1000"
+                  step="50"
                 />
               </label>
               <label>
-                edge decay interval (ms, 100-1000):
+                edge zone decay time (ms):
                 <input
                   type="number"
                   value={config.EDGE_DECAY_INTERVAL}
                   onChange={(e) => updateConfig('EDGE_DECAY_INTERVAL', e.target.value)}
                   min="100"
                   max="1000"
+                  step="50"
                 />
               </label>
               <button
@@ -372,7 +358,7 @@ const EdgeGame = () => {
         
       </main>
       <footer>
-        <p>© 2025 boss' puppy programmer ໒(＾ᴥ＾)７</p>
+        <p>© 2025 Boss' puppy programmer ໒(＾ᴥ＾)७</p>
       </footer>
     </>
   );
