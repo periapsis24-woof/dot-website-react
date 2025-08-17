@@ -215,7 +215,18 @@ const EdgeGame = () => {
           <div className="game-container">
             <div className="image-container">
               {isRuined ? (
-                <p className="ruined-text">R U I N E D</p>
+                <div>
+                  <p className="ruined-text">R U I N E D</p>
+                    <div className="stats-container">
+                      <p className="counter">edge count: {counter}</p>
+                      <p className="timer">edge time: {formatTime()}</p>
+                    </div>
+                  <div className="button-group">
+                  <Link to="/EdgeGame" className="nav-button" onClick={handleReset}>
+                    reset!!
+                  </Link>
+                </div>
+              </div>
               ) : (
                 <>
                   <img
@@ -266,7 +277,7 @@ const EdgeGame = () => {
               )}
             </div>
             {/* settings panel next to game */}
-            {selectedImage && (
+            {(!isRuined && selectedImage) && (
             <div className="settings-panel">
               <h2>game settings!!</h2>
               <label>
