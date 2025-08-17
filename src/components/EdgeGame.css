@@ -6,8 +6,10 @@
   justify-content: center;
   gap: 2rem;
   margin: 1rem 0;
-  width: 100%;
+  width: fit-content;
+  height: fit-content;
   flex: 1;
+  padding: 20px;
 }
 
 /* container for image and stats, takes half space */
@@ -86,17 +88,12 @@
 
 /* settings panel for tweaking config */
 .settings-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   gap: 1rem;
   margin: 1rem 0;
   padding: 1rem;
   background: #bbaaee;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 50%;
-  max-width: 300px;
 }
 
 /* settings panel heading */
