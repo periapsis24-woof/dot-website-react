@@ -172,6 +172,42 @@
   transition: left 0.3s ease-in-out;
 }
 
+/* tease zone marker, green at end of tease zone */
+.tease-zone-marker {
+  position: absolute;
+  top: 0;
+  left: calc(var(--tease-zone-end, 59%) - 2.5px);
+  width: 5px;
+  height: 100%;
+  background-color: #00ff00;
+  z-index: 1;
+  transition: left 0.3s ease-in-out;
+}
+
+/* edge zone marker, yellow at end of edge zone */
+.edge-zone-marker {
+  position: absolute;
+  top: 0;
+  left: calc(var(--edge-zone-end, 94%) - 2.5px);
+  width: 5px;
+  height: 100%;
+  background-color: #ffff00;
+  z-index: 1;
+  transition: left 0.3s ease-in-out;
+}
+
+/* cum zone marker, red at start of cum zone */
+/* .cum-zone-marker {
+  position: absolute;
+  top: 0;
+  left: calc(var(--cum-zone-start, 95%) - 2.5px);
+  width: 5px;
+  height: 100%;
+  background-color: #ff0000;
+  z-index: 1;
+  transition: left 0.3s ease-in-out;
+} */
+
 /* progress marker, big image */
 .progress-current-marker {
   position: absolute;
@@ -279,6 +315,18 @@
   }
 
   .progress-marker {
+    width: 2px;
+  }
+
+  .tease-zone-marker {
+    width: 2px;
+  }
+
+  .edge-zone-marker {
+    width: 2px;
+  }
+
+  .cum-zone-marker {
     width: 2px;
   }
 

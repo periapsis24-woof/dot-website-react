@@ -253,7 +253,13 @@ const EdgeGame = () => {
                     </div>
                     <div
                       className="progress-bar"
-                      style={{ '--threshold': `${config.EDGE_ZONE_MIN}%`, '--progress': `${progress}%` }}
+                      style={{ 
+                        '--threshold': `${config.EDGE_ZONE_MIN}%`, 
+                        '--progress': `${progress}%`,
+                        '--tease-zone-end': `${config.TEASE_ZONE_MAX}%`,
+                        '--edge-zone-end': `${config.EDGE_ZONE_MAX}%`,
+                        '--cum-zone-start': `${config.CUM_ZONE_MIN}%`
+                      }}
                     >
                       <div
                         className={`progress-fill ${progress >= config.EDGE_ZONE_MIN ? 'progress-fill-dark' : ''}`}
@@ -264,12 +270,22 @@ const EdgeGame = () => {
                         aria-valuemax="100"
                         aria-label="progress for selected image"
                       />
+                      {/* <div className="progress-marker" /> */}
+                      <div className="tease-zone-marker" />
+                      <div className="edge-zone-marker" />
+                      <div className="cum-zone-marker" />
+                      <img
+                        src={selectedImage === 'peach' ? peachImage : eggplantImage}
+                        alt="progress marker"
+                        className="progress-current-marker"
+                      />
                     </div>
                   </div>
                 </>
               )}
             </div>
             {/* settings panel next to game */}
+            {selectedImage && (
             <div className="settings-panel">
               <h2>tweak game settings</h2>
               <label>
@@ -350,7 +366,7 @@ const EdgeGame = () => {
               >
                 Reset to Defaults
               </button>
-            </div>
+            </div>)}
           </div>
         )}
         {/* settings panel when no image selected */}
