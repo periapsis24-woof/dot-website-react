@@ -1,3 +1,4 @@
+/* root container, full height and centered */
 #root {
   display: flex;
   flex-direction: column;
@@ -8,6 +9,7 @@
   width: 100%;
 }
 
+/* body styling, purple theme with pattern */
 body {
   font-family: 'Quicksand', sans-serif;
   margin: 0;
@@ -18,130 +20,106 @@ body {
   background-size: 60px 60px;
   display: flex;
   justify-content: center;
+  min-height: 100vh;
 }
 
+/* header, big and bold across screen */
 header {
   background-color: #af72d9;
   color: white;
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-bottom: 3px solid #944dc7;
   margin-top: 0;
   width: 100%;
-  max-width: 600px;
 }
 
+/* header title, huge for desktop */
 header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
 }
 
+/* main content, fills screen */
 main {
-  padding: 1rem 1rem 5rem;
   text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* paragraph text, big and clear */
 main p {
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin: 0 0 0.5rem;
 }
 
+/* welcome text, matching main p */
 .welcome-text {
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin: 0 0 0.5rem;
 }
 
+/* footer, full width at bottom */
 footer {
   background-color: #bbaaee;
   padding: 0.5rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   position: fixed;
   bottom: 0;
   width: 100%;
-  max-width: 600px;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
-#increment-button {
-  padding: 0.75rem 1.5rem;
-  background-color: #af72d9;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  font-family: 'Fuzzy Bubbles', cursive;
-  transition: transform 0.2s, background-color 0.2s;
-  margin: 0.5rem 0;
-}
-
-#increment-button:hover {
-  background-color: #944dc7;
-  transform: scale(1.05);
-}
-
+/* nav button, big and clickable */
 .nav-button {
   display: inline-block;
-  padding: 0.75rem 1.5rem;
+  padding: 1.2rem 2.5rem;
   background-color: #af72d9;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-family: 'Fuzzy Bubbles', cursive;
   text-decoration: none;
   transition: transform 0.2s, background-color 0.2s;
   margin: 0.5rem;
 }
 
+/* hover effect for nav button */
 .nav-button:hover {
   background-color: #944dc7;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
+/* button group for centering */
 .button-group {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
-.back-button-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 0.5rem 0;
-  position: fixed;
-  bottom: 2.5rem;
-}
-
+/* visitor count, bold and purple */
 #visitor-count {
   font-weight: 700;
-  font-size: 1.8rem;
-  color: #af72d9;
+  font-size: 2.2rem;
+  /* color: #af72d9; */
 }
 
+/* pop animation for visitor count */
 #visitor-count.updated {
   animation: woof-pop 0.3s ease-in-out;
 }
 
+/* woof pop animation */
 @keyframes woof-pop {
   0% { transform: scale(1); }
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 }
 
+/* mobile styles for smaller screens */
 @media screen and (max-width: 600px) {
   header {
     padding: 0.5rem;
@@ -173,12 +151,12 @@ footer {
     gap: 0.3rem;
   }
 
-  .back-button-container {
-    bottom: 2.5rem;
-  }
-
   footer {
     padding: 0.3rem;
     font-size: 0.7rem;
+  }
+
+  #visitor-count {
+    font-size: 1.2rem;
   }
 }
