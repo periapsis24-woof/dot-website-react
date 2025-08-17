@@ -47,16 +47,18 @@ const BarkOMeter = () => {
 
   return (
     <>
-      <header>
+      <header className="header">
         <h1>Boss Dot's Bark-O-Meter</h1>
       </header>
-      <main>
-        <p>
+      <main className="main">
+        <p className=''>
           Total Woofs: <span id="visitor-count">{error || count || 'Loading...'}</span>
         </p>
-        <button id="increment-button" onClick={handleIncrement}>
-          w o o f ! ! ໒(＾ᴥ＾)７
-        </button>
+        <div className="button-group"> 
+          <button className="nav-button" onClick={handleIncrement}>
+            w o o f ! ! ໒(＾ᴥ＾)７
+          </button>
+        </div>
         <div className="button-group">
           <Link to="/EdgeGame" className="nav-button">
             Edge Game!
@@ -64,7 +66,7 @@ const BarkOMeter = () => {
         </div>
       </main>
       <footer>
-        <p>© 2025 Boss' Puppy Programmer ໒(＾ᴥ＾)７</p>
+        <p>© 2025 Boss' puppy programmer ໒(＾ᴥ＾)７</p>
       </footer>
     </>
   );
