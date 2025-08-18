@@ -186,12 +186,14 @@
     align-items: center;
     gap: 1rem;
     max-height: none;
+    padding-right: 80px;
   }
 
   .game-area {
     width: 90vw;
     max-height: 50vh;
     min-height: 200px;
+    padding-right: 80px;
   }
 
   .settings-panel {
@@ -244,6 +246,8 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 
 .edge-game-header {
@@ -319,8 +323,6 @@
 }
 
 .left-panel {
-  padding-right: 20px;
-  padding-left: 20px;
   width: 25vw;
   display: flex;
   flex-direction: column;
