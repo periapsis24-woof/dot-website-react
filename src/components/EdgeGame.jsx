@@ -53,6 +53,10 @@ const useEdgeGame = () => {
     setConfig((prev) => ({ ...prev, [key]: Number(value) }));
   };
 
+  // const updateConfig = (key, value) => {
+  //   setConfig((prev) => ({ ...prev, [key]: key === 'DECREMENT_MODE' ? value : Number(value) }));
+  // };
+
   useEffect(() => {
     if (isRuined) return;
     const interval = setInterval(() => {
@@ -124,10 +128,10 @@ const EdgeGame = () => {
         <h1 className="edge-game-header">Eggplant Edgies</h1>
       </div>
       <div className="edge-game-container">
-          <div className="left-panel">
+          <div className='left-panel'>
             <div className='stats-panel'>
               <p className="stats-label">Edge count: {counter}</p>
-              <p className="stats-label">Edge zone record: {edgeZoneRecord}</p>
+              <p className="stats-label">Edge zone record: {edgeZoneRecord}s</p>
               <p className="stats-label">Total edge zone time: {Math.floor(edgeZoneTime)}s</p>
             </div>
             <div className="settings-panel">
@@ -135,9 +139,12 @@ const EdgeGame = () => {
                 <h2>Settings</h2>
                 <button className="reset-button" onClick={resetConfig}>Reset</button>
               </div>
-                <label className="settings-label">Tease<input type="text" placeholder="Value" className="settings-input" /></label>
-                <label className="settings-label">Edge<input type="text" placeholder="Value" className="settings-input" /></label>
-                <label className="settings-label">Etc<input type="text" placeholder="Value" className="settings-input" /></label>
+                <label className="settings-label">Tease<input step="5" type="number" placeholder={config.TEASE_ZONE_MAX} className="settings-input" /></label>
+                <label className="settings-label">Edge<input step="5" type="number" placeholder={config.EDGE_ZONE_MAX} className="settings-input" /></label>
+                <label className="settings-label">Incrememnt<input step="5" type="number" placeholder={config.INCREMENT} className="settings-input" /></label>
+                <label className="settings-label">Decrement<input step="5" type="number" placeholder={config.DECREMENT} className="settings-input" /></label>
+                <label className="settings-label">Tease Zone Decay (ms)<input step="5" type="number" placeholder={config.TEASE_DECAY_INTERVAL} className="settings-input" /></label>
+                <label className="settings-label">Edge Zone Decay (ms)<input step="5" type="number" placeholder={config.EDGE_DECAY_INTERVAL} className="settings-input" /></label>
             </div>
           </div>
         <div className="game-area">

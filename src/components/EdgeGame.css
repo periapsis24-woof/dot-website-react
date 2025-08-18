@@ -5,11 +5,10 @@
   /* align-items: flex-start; */
   justify-content: center;
   gap: 2rem;
-  margin: 1rem 0;
+  margin: 20px;
   width: fit-content;
   height: fit-content;
   flex: 1;
-  padding: 20px;
 }
 
 /* container for image and stats, takes half space */
@@ -53,17 +52,12 @@
   flex-direction: column;
   align-items: flex-start;
   font-size: 1.2rem;
-  color: #333;
+  color: #322165;
   font-family: 'Quicksand', sans-serif;
-}
-/* stats container, spaced out wide */
-.left-panel {
-  margin-right: 20px;
-  
-
 }
 .stats-panel {
   background-color: #FFFFFF;
+  color: #322165;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #ADA2CE;
@@ -86,8 +80,10 @@
   gap: 1rem;
   margin: 1rem 0;
   padding: 1rem;
+  padding-bottom: 120px;
   background: #bbaaee;
   border-radius: 12px;
+  color: #322165;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -95,7 +91,7 @@
 .settings-panel h2 {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #af72d9;
+  color: #322165;
   margin: 0;
   font-family: 'Quicksand', sans-serif;
 }
@@ -106,7 +102,7 @@
   flex-direction: column;
   align-items: flex-start;
   font-size: 1.2rem;
-  color: #333;
+  color: #322165;
   font-family: 'Quicksand', sans-serif;
 }
 
@@ -114,7 +110,8 @@
 .settings-panel input {
   padding: 0.5rem;
   font-size: 1.2rem;
-  border: 2px solid #af72d9;
+  border: 2px solid #ADA2CE;
+  color: #322165;
   border-radius: 8px;
   width: 100px;
   margin-top: 0.3rem;
@@ -125,7 +122,6 @@
   width: 100%;
   max-width: 1000px;
   height: 40px;
-  background-color: #bbaaee;
   border-radius: 12px;
   overflow: hidden;
   margin: 1rem 0;
@@ -164,7 +160,7 @@
   left: calc(var(--tease-zone-end, 59%) - 2.5px);
   width: 5px;
   height: 100%;
-  background-color: #00ff00;
+  background-color: #C4F4DA;
   z-index: 1;
   transition: left 0.3s ease-in-out;
 }
@@ -176,7 +172,7 @@
   left: calc(var(--edge-zone-end, 94%) - 2.5px);
   width: 5px;
   height: 100%;
-  background-color: #ffff00;
+  background-color: #5BCF91;
   z-index: 1;
   transition: left 0.3s ease-in-out;
 }
@@ -188,7 +184,7 @@
   left: calc(var(--cum-zone-start, 95%) - 2.5px);
   width: 5px;
   height: 100%;
-  background-color: #ff0000;
+  background-color: #FDA498;
   z-index: 1;
   transition: left 0.3s ease-in-out;
 }
@@ -209,7 +205,7 @@
 .ruined-text {
   font-size: 4rem;
   font-weight: 700;
-  color: #ff0000;
+  color: #FDA498;
   font-family: 'Quicksand', sans-serif;
   text-align: center;
   margin: 1rem 0;
@@ -352,6 +348,7 @@
   color: #322165;
   width: 250px;
   padding-left: 20px;
+  font-size: 1.5rem;
 
 }
 .edge-game-header-container {
@@ -366,18 +363,16 @@
 }
 
 .edge-game-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
+  display: flex;    
+  justify-content: center;
+  width: 100vw;
 }
 
 .settings-panel {
   background-color: #FFFFFF;
-  padding: 20px;
   border-radius: 10px;
   border: 1px solid #ADA2CE;
-  height: 54%;
+  margin-bottom: 0px;
 
 }
 
@@ -417,10 +412,13 @@
   margin-top: 5px;
 }
 
+.left-panel {
+  padding-right: 20px;
+  width: 10vw;;
+}
+
 .game-area {
-  width: 70%;
   background-color: #FFFFFF;
-  padding: 40px;
   border-radius: 10px;
   border: 6px solid #322165;
   text-align: center;
@@ -428,6 +426,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50vw;
+  height: 75vh;
 }
 
 .ruined-text {
@@ -446,9 +446,8 @@
 }
 
 .eggplant-image {
-  max-width: 200px;
+  scale: .45;
   cursor: pointer;
-  margin-bottom: 100px;
 }
 
 .progress-bar-container {
