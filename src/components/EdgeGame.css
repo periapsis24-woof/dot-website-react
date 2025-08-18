@@ -1,14 +1,40 @@
+/* Wiggle keyframes for different intensities */
+@keyframes wiggle-low {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(-1deg); }
+  75% { transform: rotate(1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes wiggle-medium {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  50% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes wiggle-high {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+
 /* container for game and settings, side by side */
-.game-container {
+.edge-game-container {
   display: flex;
   flex-direction: row;
-  /* align-items: flex-start; */
+  align-items: stretch;
   justify-content: center;
   gap: 2rem;
   margin: 20px;
-  width: fit-content;
-  height: fit-content;
-  flex: 1;
+  width: 100vw;
+  height: 80vh;
+  /* max-height: 50vh; */
+  flex: 0 0 auto;
 }
 
 /* container for image and stats, takes half space */
@@ -46,15 +72,11 @@
   animation: wiggle-high 0.3s ease-in-out;
 }
 
-/* edge count text, big and bold */
-.stats-label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-size: 1.2rem;
-  color: #322165;
-  font-family: 'Quicksand', sans-serif;
+.stats-value {
+  font-weight: bold;
+  margin-left: 0px; /* Space between label and value */
 }
+
 .stats-panel {
   background-color: #FFFFFF;
   color: #322165;
@@ -77,14 +99,16 @@
 
 /* settings panel for tweaking config */
 .settings-panel {
-  gap: 1rem;
-  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
-  padding-bottom: 120px;
-  background: #bbaaee;
-  border-radius: 12px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  border: 1px solid #ADA2CE;
   color: #322165;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  flex: 1;
+  overflow-y: auto;
 }
 
 /* settings panel heading */
@@ -101,7 +125,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   color: #322165;
   font-family: 'Quicksand', sans-serif;
 }
@@ -113,140 +137,69 @@
   border: 2px solid #ADA2CE;
   color: #322165;
   border-radius: 8px;
-  width: 100px;
+  width: 95%;
   margin-top: 0.3rem;
 }
 
-/* progress bar, stretches across screen */
-.progress-bar {
+/* wrapper for progress bar and marker */
+.progress-wrapper {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  right: 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* progress bar, stretches across screen with zoned colors */
+.progress-bar-container {
   width: 100%;
-  max-width: 1000px;
-  height: 40px;
-  border-radius: 12px;
+  height: 20px;
+  border-radius: 10px;
   overflow: hidden;
-  margin: 1rem 0;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   position: relative;
+  z-index: 10;
 }
 
-/* progress fill, smooth transitions */
-.progress-fill {
-  height: 100%;
-  background-color: #af72d9;
-  transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
-}
-
-/* darker fill in edge zone */
-.progress-fill-dark {
-  background-color: #944dc7;
-}
-
-/* threshold marker, thicker for visibility */
+/* progress marker (eggplant) moves over the bar */
 .progress-marker {
   position: absolute;
-  top: 0;
-  left: calc(var(--threshold, 60%) - 2.5px);
-  width: 5px;
-  height: 100%;
-  background-color: #944dc7;
-  z-index: 1;
-  transition: left 0.3s ease-in-out;
-}
-
-/* tease zone marker, green at end of tease zone */
-.tease-zone-marker {
-  position: absolute;
-  top: 0;
-  left: calc(var(--tease-zone-end, 59%) - 2.5px);
-  width: 5px;
-  height: 100%;
-  background-color: #C4F4DA;
-  z-index: 1;
-  transition: left 0.3s ease-in-out;
-}
-
-/* edge zone marker, yellow at end of edge zone */
-.edge-zone-marker {
-  position: absolute;
-  top: 0;
-  left: calc(var(--edge-zone-end, 94%) - 2.5px);
-  width: 5px;
-  height: 100%;
-  background-color: #5BCF91;
-  z-index: 1;
-  transition: left 0.3s ease-in-out;
-}
-
-/* cum zone marker, red at start of cum zone */
-.cum-zone-marker {
-  position: absolute;
-  top: 0;
-  left: calc(var(--cum-zone-start, 95%) - 2.5px);
-  width: 5px;
-  height: 100%;
-  background-color: #FDA498;
-  z-index: 1;
-  transition: left 0.3s ease-in-out;
-}
-
-/* progress marker, big image */
-.progress-current-marker {
-  position: absolute;
-  top: -16px;
-  left: calc(var(--progress, 0%) - 32px);
-  width: 64px;
-  height: 64px;
+  top: 50%;
+  transform: translate(20%, -50%);
+  left: calc(var(--progress, 0%) - 25px);
+  width: 50px;
+  height: 80px;
   object-fit: contain;
-  z-index: 2;
+  z-index: 20;
   transition: left 0.3s ease-in-out;
 }
-
-/* huge ruin text for max drama */
-.ruined-text {
-  font-size: 4rem;
-  font-weight: 700;
-  color: #FDA498;
-  font-family: 'Quicksand', sans-serif;
-  text-align: center;
-  margin: 1rem 0;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+.custom-cursor {
+  cursor: url('../assets/custom-cursor.cur'), url('https://www.cursor.cc/cursor/109/2.cur'), pointer; /* Test with a known cursor */
 }
 
-/* wiggle animations for fun vibes */
-@keyframes wiggle-low {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px) rotate(-5deg); }
-  50% { transform: translateX(5px) rotate(5deg); }
-  75% { transform: translateX(-5px) rotate(-5deg); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes wiggle-medium {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-10px) rotate(-8deg); }
-  50% { transform: translateX(10px) rotate(8deg); }
-  75% { transform: translateX(-10px) rotate(-8deg); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes wiggle-high {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-15px) rotate(-12deg); }
-  50% { transform: translateX(15px) rotate(12deg); }
-  75% { transform: translateX(-15px) rotate(-12deg); }
-  100% { transform: translateX(0); }
-}
-
-/* mobile styles for smaller screens */
-@media screen and (max-width: 600px) {
-  .game-container {
+/* Media query for mobile/responsive */
+@media (max-width: 768px) {
+  .edge-game-container {
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
+    max-height: none;
   }
 
-  .image-container {
-    margin: 0.5rem 0;
+  .game-area {
+    width: 90vw;
+    max-height: 50vh;
+    min-height: 200px;
+  }
+
+  .settings-panel {
+    padding: 0.5rem;
     width: 100%;
+    max-width: 90%;   
+    overflow-y: auto;
+
   }
 
   .centered-image {
@@ -254,72 +207,32 @@
     max-height: 200px;
   }
 
-  .counter {
-    font-size: 0.7rem;
-  }
-
-  .timer {
-    font-size: 0.7rem;
-  }
-
-  .stats-container {
-    gap: 1rem;
-    margin: 0.5rem 0;
-  }
-
-  .game-bottom-container {
-    margin: 0.5rem 0;
-  }
-
-  .settings-panel {
-    padding: 0.5rem;
-    width: 100%;
-    max-width: 90%;
-  }
-
-  .settings-panel h2 {
+  .stats-label {
+    display: flex;
+    flex-direction: row; /* Change from column to row */
+    align-items: center; /* Vertically center the label and value */
     font-size: 1.2rem;
+    color: #322165;
+    font-family: 'Quicksand', sans-serif;
+    margin-right: 10px; /* Optional space between stats */
   }
 
-  .settings-panel label {
-    font-size: 0.9rem;
+  .progress-wrapper {
+    height: 50px;
+    left: 20px;
+    right: 20px;
   }
 
-  .settings-panel input {
-    font-size: 0.9rem;
-    width: 80px;
-  }
-
-  .progress-bar {
+  .progress-bar-container {
     max-width: 90%;
     height: 14px;
   }
 
   .progress-marker {
-    width: 2px;
-  }
-
-  .tease-zone-marker {
-    width: 2px;
-  }
-
-  .edge-zone-marker {
-    width: 2px;
-  }
-
-  .cum-zone-marker {
-    width: 2px;
-  }
-
-  .progress-current-marker {
-    width: 28px;
-    height: 28px;
-    top: -7px;
-    left: calc(var(--progress, 0%) - 14px);
-  }
-
-  .ruined-text {
-    font-size: 1.5rem;
+    width: 40px;
+    height: 60px;
+    top: 50%;
+    transform: translate(20%, -50%);
   }
 }
 
@@ -344,13 +257,20 @@
   justify-content: center;
   align-items: center;
 }
+
 .edge-game-back-button {
   color: #322165;
-  width: 250px;
+  width: 40vw;
   padding-left: 20px;
   font-size: 1.5rem;
-
+  text-decoration: none;
 }
+
+.edge-game-back-button::before {
+  content: '← ';
+  font-size: 1.2em;
+}
+
 .edge-game-header-container {
   display: flex;
   flex-direction: row;
@@ -362,25 +282,10 @@
   border-bottom: 1px solid #ADA2CE;
 }
 
-.edge-game-container {
-  display: flex;    
-  justify-content: center;
-  width: 100vw;
-}
-
-.settings-panel {
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  border: 1px solid #ADA2CE;
-  margin-bottom: 0px;
-
-}
-
 .settings-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .settings-header h2 {
@@ -394,14 +299,15 @@
   color: #FFFFFF;
   padding: 5px 15px;
   border: none;
-  border-radius: 1q0px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .settings-label {
   display: block;
   color: #322165;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  width: 100%;
 }
 
 .settings-input {
@@ -414,7 +320,11 @@
 
 .left-panel {
   padding-right: 20px;
-  width: 10vw;;
+  padding-left: 20px;
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .game-area {
@@ -426,8 +336,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50vw;
-  height: 75vh;
+  width: 70vw;
+}
+.custom-cursor {
+  cursor: url('../assets/custom-cursor.cur'), url('https://www.cursor.cc/cursor/109/2.cur'), pointer; /* Test with a known cursor */
 }
 
 .ruined-text {
@@ -446,29 +358,7 @@
 }
 
 .eggplant-image {
-  scale: .45;
-  cursor: pointer;
-}
-
-.progress-bar-container {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  height: 20px;
-  background-color: #C4F4DA;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  transition: width 0.3s;
-}
-
-.progress-marker {
-  position: absolute;
-  top: -15px;
-  left: calc(var(--progress, 0%) - 15px);
-  width: 30px;
+  max-width: 80%;
+  max-height: 80%;
+  transform-origin: center;
 }
