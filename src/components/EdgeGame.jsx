@@ -158,7 +158,9 @@ const EdgeGame = () => {
     <div className="edge-game-main">
       <div className="edge-game-header-container">
         <Link to="/" className="edge-game-back-button"> Back to Wooferville</Link>
-        <h1 className="edge-game-header">Eggplant Edgies</h1>
+        <h1 className="edge-game-header">
+          Eggplant Edgies
+        </h1>
       </div>
       <div className="edge-game-container">
         <div className='left-panel'>
@@ -196,7 +198,7 @@ const EdgeGame = () => {
               onChange={(e) => updateConfig('DECREMENT', e.target.value)} 
               className="settings-input" 
             /></label>
-            {/* <label className="settings-label">Tease Zone Decay (ms)<input 
+            <label className="settings-label">Tease Zone Decay (ms)<input 
               type="number" 
               value={config.TEASE_DECAY_INTERVAL || ''} 
               onChange={(e) => updateConfig('TEASE_DECAY_INTERVAL', e.target.value)} 
@@ -207,7 +209,7 @@ const EdgeGame = () => {
               value={config.EDGE_DECAY_INTERVAL || ''} 
               onChange={(e) => updateConfig('EDGE_DECAY_INTERVAL', e.target.value)} 
               className="settings-input" 
-            /></label> */}
+            /></label>
           </div>
         </div>
         <div className="game-area custom-cursor">
