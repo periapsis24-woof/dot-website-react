@@ -51,7 +51,7 @@ const Wooferville = () => {
         <h1>Welcome to Wooferville!</h1>
       </header>
       <div className="content">
-        <p className="population">Population: <span id="visitor-count">{error || count || 'Loading...'}</span> woofs</p>
+        <p className="population">Population: <span id="visitor-count">{error || count || 'Loading...'}</span> woofers</p>
         <div className='button-container'>
             <div className="button-group"> 
                 <button className="button puppy-button" onClick={handleIncrement}>
