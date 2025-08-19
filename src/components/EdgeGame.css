@@ -252,7 +252,7 @@
   margin: 0px;
   text-align: center;
   width: 100vw;
-  height: 75px;
+  height: 5vh;
   padding-right: 18vw;
   display: flex;
   justify-content: center;
@@ -280,7 +280,7 @@
   background: white;
   align-items: center;
   margin-bottom: 20px;
-  height: 100px;
+  height: 5vh;
   border-bottom: 1px solid #ADA2CE;
 }
 
